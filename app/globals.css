@@ -1,26 +1,132 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --canvas: oklch(0.984 0.0025 265);
+  --surface: oklch(1 0 0);
+  --surface-2: oklch(0.968 0.003 265);
+  --fg: oklch(0.235 0.012 265);
+  --muted-fg: oklch(0.52 0.012 265);
+  --border: oklch(0 0 0 / 9%);
+  --border-strong: oklch(0 0 0 / 16%);
+  --accent: oklch(0.54 0.17 265);
+  --accent-fg: oklch(0.99 0.005 265);
+  --success: oklch(0.55 0.14 155);
+  --danger: oklch(0.55 0.19 25);
+  --shadow-card: 0 1px 2px oklch(0 0 0 / 6%), 0 10px 26px -14px oklch(0 0 0 / 22%);
+}
+
+.dark {
+  --canvas: oklch(0.17 0.006 265);
+  --surface: oklch(0.205 0.007 265);
+  --surface-2: oklch(0.235 0.008 265);
+  --fg: oklch(0.94 0.004 265);
+  --muted-fg: oklch(0.69 0.01 265);
+  --border: oklch(0.29 0.008 265);
+  --border-strong: oklch(0.36 0.01 265);
+  --accent: oklch(0.74 0.12 265);
+  --accent-fg: oklch(0.17 0.02 265);
+  --success: oklch(0.72 0.12 155);
+  --danger: oklch(0.7 0.15 25);
+  --shadow-card: 0 1px 2px oklch(0 0 0 / 40%), 0 12px 30px -16px oklch(0 0 0 / 70%);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--fg);
+  --color-muted-fg: var(--muted-fg);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    color-scheme: light;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--canvas);
+    color: var(--fg);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: color-mix(in oklch, var(--accent) 26%, transparent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Generated gallery thumbnails: one hue per prototype, no image assets. */
+.thumb {
+  background:
+    radial-gradient(115% 125% at 18% 0%, oklch(0.93 0.048 var(--hue)) 0%, transparent 62%),
+    linear-gradient(160deg, oklch(0.975 0.012 var(--hue)) 0%, oklch(0.955 0.006 var(--hue)) 100%);
+}
+
+.dark .thumb {
+  background:
+    radial-gradient(115% 125% at 18% 0%, oklch(0.35 0.062 var(--hue)) 0%, transparent 64%),
+    linear-gradient(160deg, oklch(0.255 0.018 var(--hue)) 0%, oklch(0.21 0.007 var(--hue)) 100%);
+}
+
+/* Instrument materials. Light and dark share them: a piano is a piano. */
+.key-white {
+  background: linear-gradient(180deg, oklch(0.999 0.001 265) 0%, oklch(0.958 0.004 265) 100%);
+  box-shadow: inset 0 -2px 0 oklch(0 0 0 / 10%);
+}
+
+.key-white[data-down="true"] {
+  background: linear-gradient(180deg, oklch(0.92 0.055 var(--hue, 265)) 0%, oklch(0.84 0.085 var(--hue, 265)) 100%);
+  box-shadow: inset 0 2px 6px oklch(0 0 0 / 12%);
+}
+
+.key-black {
+  background: linear-gradient(180deg, oklch(0.31 0.012 265) 0%, oklch(0.15 0.008 265) 100%);
+  box-shadow: 0 3px 5px oklch(0 0 0 / 35%), inset 0 -2px 0 oklch(0 0 0 / 55%);
+}
+
+.key-black[data-down="true"] {
+  background: linear-gradient(180deg, oklch(0.46 0.085 var(--hue, 265)) 0%, oklch(0.3 0.07 var(--hue, 265)) 100%);
+  box-shadow: inset 0 2px 6px oklch(0 0 0 / 45%);
+}
+
+input[type="range"] {
+  accent-color: var(--accent);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
