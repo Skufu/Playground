@@ -98,7 +98,7 @@ and a panel designed after the polish has to be polished again.
 - [ ] a reload keeps the state that matters
 - [ ] no console errors, no unused exports
 - [ ] `pnpm build` passes
-- [ ] `pnpm deploy` succeeds and the live URL shows the prototype
+- [ ] `pnpm ship` succeeds and the live URL shows the prototype
 
 ## When a rule is wrong
 

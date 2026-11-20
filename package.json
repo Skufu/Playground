@@ -7,8 +7,8 @@
     "dev": "node scripts/sync-prototypes.mjs && next dev",
     "build": "node scripts/sync-prototypes.mjs && next build",
     "start": "next start",
-    "deploy": "node scripts/sync-prototypes.mjs && next build && wrangler deploy",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "ship": "node scripts/sync-prototypes.mjs && next build && wrangler deploy"
   },
   "dependencies": {
     "clsx": "2.1.1",

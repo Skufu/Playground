@@ -54,7 +54,7 @@ Open `/p/my-idea`. That URL is permanent, so pick the slug for the idea.
 ## Deploy
 
 ```bash
-pnpm deploy    # static export, then wrangler deploy
+pnpm ship    # static export, then wrangler deploy
 ```
 
 Live at **https://skufu-playground.zanemanilaph.workers.dev**.
